@@ -1,57 +1,15 @@
 #include <iostream>
 #include <cstdlib>
-#include <vector>
-#include "secondLab.h"
-
 using namespace std;
 
-int main() {
-
-    cout << "Second lab work" << endl;
-    int array[] = {23, 23, 14, 3, 48, 0, 58, 18, 80, 96};
-    int size = 10;
-    /*
-    cout << "Array:" << endl;
-    printArrayHistogram(array, size);
-    int firstAnswer = firstQuestion();
-
-    int secondAnswer = secondQuestion();
-    if (secondAnswer == 2) {
-        minMax minmax = getMinMax();
-        cout << minmax.max << endl;
-        size = minmax.max - minmax.min;
-        arraySlice(array, minmax);
-    }
-
-    int thirdAnswer = thirdQuestion();
-
-    switch (thirdAnswer) {
-        case 1:
-            insertSort(array, size);
-            break;
-        case 2:
-            selectionSort(array, size);
-            break;
-        case 3:
-            bubbleSort(array, size);
-    }
-
-    if (firstAnswer == 2) {
-        reverseArray(array, size);
-    }
-
-    cout << "Result:" << endl;
-    printArrayHistogram(array, size);
-    */
-   cout << getMostProbablyElement(array, size) << endl;
-
-
-}
+typedef struct minMax {
+    int min;
+    int max;
+} minMax;
 
 int firstQuestion() {
-    cout << "How should i sort the array?" << endl;
-    cout << "Input 1 if in ascending order" << endl;
-    cout << "Input 2 if in descending order" << endl;
+    cout << "Введіть 1 якщо за зростанням" << endl;
+    cout << "Введіть 2 якщо за спаданням" << endl;
 
     int answer;
     while (true) {
@@ -59,15 +17,13 @@ int firstQuestion() {
         if (answer == 1 || answer == 2) {
             return answer;
         }
-        cout << "Incorrect answer, should be 1 or 2" << endl;;
-        cout << "Try again" << endl;
+        cout << "Введенне значення повинно бути 1 або 2, спробуйте ще раз" << endl;;
     }
 }
 
 int secondQuestion() {
-    cout << "What part of the array to sort?" << endl;
-    cout << "Input 1 if sort the whole array" << endl;
-    cout << "Input 2 if sort the array from min to max" << endl;
+    cout << "Введіть 1 якщо сортурувати весь масив" << endl;
+    cout << "Введіть 2 якщо сортурувати масив від min до max" << endl;
 
     int answer;
     while (true) {
@@ -75,8 +31,7 @@ int secondQuestion() {
         if (answer == 1 || answer == 2) {
             return answer;
         }
-        cout << "Incorrect answer, should be 1 or 2" << endl;;
-        cout << "Try again" << endl;
+        cout << "Введенне значення повинно бути 1 або 2, спробуйте ще раз" << endl;;
     }
 }
 
@@ -98,10 +53,9 @@ void arraySlice(int *array, minMax minmax) {
 }
 
 int thirdQuestion() {
-    cout << "Which algorithm should i use:" << endl;
-    cout << "Input 1 if insert sort" << endl;
-    cout << "Input 2 if selection sort" << endl;
-    cout << "Input 3 if bubble sort" << endl;
+    cout << "Введіть 1 якщо insert sort" << endl;
+    cout << "Введіть 2 якщо selection sort" << endl;
+    cout << "Введіть 3 якщо bubble sort" << endl;
 
     int answer;
     while (true) {
@@ -109,8 +63,7 @@ int thirdQuestion() {
         if (answer == 1 || answer == 2 || answer == 3) {
             return answer;
         }
-        cout << "Incorrect answer, should be 1 or 2 or 3" << endl;
-        cout << "Try again" << endl;
+        cout << "Введенне значення повинно бути 1, 2 або 3, спробуйте ще раз" << endl;
     }
 }
 
@@ -125,21 +78,14 @@ void reverseArray(int *array, int count) {
 }
 
 int getRandomNumber(int min, int max) {
-    int range = max - min + ONE;
+    int range = max - min + 1;
     return rand() % range + min;
 }
 
 int *getRandomArray(int unsigned size) {
-    // Initiallize array
-    int *array = new (std::nothrow) int[size];
-
-    // Check did OS give us memory
-    if (array == nullptr) {
-        exit(EXIT_FAILURE);
-    }
-
+    int *array = new int[size];
     for (int i=0; i < size; i++) {
-        int r = getRandomNumber(MIN_RAND, MAX_RAND);
+        int r = getRandomNumber(0, 50);
         array[i] = r;
         std::cout << array[i] << std::endl;
     }
@@ -167,8 +113,7 @@ int getMaxElement(int *array, unsigned int size) {
     return max;
 }
 
-/** Returning -1 if noone of array elements is repeating more than 1 time */
-int getMostProbablyElement(int *array, unsigned int size) {
+int getMostProbableElement(int *array, unsigned int size) {
     int maxCount = 1;
     /* default res */
     int result = -1;
@@ -198,10 +143,6 @@ void printArrayHistogram(int *array, unsigned int size) {
     }
 }
 
-/**
- * @param x value to search in the array
- * @return index of element, -1 if doesn't exists
- */
 int linearSearch(int *array, int x, unsigned int size) {
     for (int i=0; i < size; i++) {
         if (array[i] == x) {
@@ -211,18 +152,11 @@ int linearSearch(int *array, int x, unsigned int size) {
     return -1;
 }
 
-/** 
- * Compare function for qsort
- * @return x=0 if x1==x2, <0 if x1 < x2 and > 0 if x1 > x2
- */
 int compare(const void * x1, const void * x2)
 {
   return ( *(int*)x1 - *(int*)x2 );
 }
 
-/**
- * Swap pointers function
- */
 void swap(int *xp, int *yp)  
 {  
     int temp = *xp;  
@@ -230,10 +164,6 @@ void swap(int *xp, int *yp)
     *yp = temp;  
 }  
  
-/**
- * @param x value to search in the array
- * @return index of element, -1 if doesn't exists
- */
 int binarySearch(int *array, int x, unsigned int size, bool isSorted=false) {
     if (!isSorted) {
         qsort(array, size, sizeof(int), compare);
@@ -302,3 +232,36 @@ void bubbleSort(int *array, int size) {
   }
 }
   
+int main() {
+    int array[] = {23, 87, 14, 3, 48, 0, 58, 18, 80, 96};
+    int size = 10;
+
+    int firstAnswer = firstQuestion();
+
+    int secondAnswer = secondQuestion();
+    if (secondAnswer == 2) {
+        minMax minmax = getMinMax();
+        cout << minmax.max << endl;
+        size = minmax.max - minmax.min;
+        arraySlice(array, minmax);
+    }
+
+    int thirdAnswer = thirdQuestion();
+
+    switch (thirdAnswer) {
+        case 1:
+            insertSort(array, size);
+            break;
+        case 2:
+            selectionSort(array, size);
+            break;
+        case 3:
+            bubbleSort(array, size);
+    }
+
+    if (firstAnswer == 2) {
+        reverseArray(array, size);
+    }
+
+    printArrayHistogram(array, size);
+}

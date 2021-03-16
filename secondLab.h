@@ -29,7 +29,7 @@ int *getRandomArray(int unsigned size);
 
 int getMinElement(int *array, int unsigned size);
 
-int getMaxElemenent(int *array, int unsigned size);
+int getMaxElement(int *array, int unsigned size);
 
 int getMostProbablyElement(int *array, int unsigned size);
 
