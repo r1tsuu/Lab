@@ -1,6 +1,3 @@
-/**
- Oleksandr Rakhmatulin TZ-02
-*/
 
 #include <iostream>
 #include <cmath>
